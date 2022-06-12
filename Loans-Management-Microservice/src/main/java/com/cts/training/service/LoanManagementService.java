@@ -41,4 +41,15 @@ public interface LoanManagementService {
 	 */
 	public ResponseEntity<String> saveCashDeposit(String token, CashDeposit cashDeposit)
 			throws CustomerLoanNotFoundException, LoanNotFoundException;
+	//My Code
+	/**
+	 * For saving LoanApplication
+	 * @param loanApplication
+	 * @return ResponseEntity/Status 
+	 */
+	public ResponseEntity<String> applyLoan(LoanApplication loanApplication);
+	public ArrayList<LoanApplication> viewCustLoan(int custId);
+	public ArrayList<LoanApplication> getAll();
+	public ResponseEntity<String> approveLoan(Integer applicationId);
+	public ResponseEntity<String> rejectLoan(Integer applicationId);
 }
