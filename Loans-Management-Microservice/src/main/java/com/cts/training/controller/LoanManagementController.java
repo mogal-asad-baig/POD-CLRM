@@ -98,4 +98,46 @@ public class LoanManagementController {
 			return new ResponseEntity<>("Invalid token", HttpStatus.FORBIDDEN);
 		}
 	}
+	/** Apply for loan
+	 * @param loanApplication
+	 * @return
+	 */
+	@PostMapping(value="/applyLoan")
+	public ResponseEntity<String> applyLoan(@RequestBody LoanApplication loanApplication){
+		//System.out.println("inside loan-management-controller"+loanApplication);
+		return loanService.applyLoan(loanApplication);
+	}
+	/** Get status of loan application
+	 * @param custId
+	 * @return
+	 */
+	@GetMapping(value = "/getLoanApplicationStatus")
+    public ArrayList<LoanApplication> viewLoanCust(@RequestHeader int custId) {
+		return loanService.viewCustLoan(custId);
+	}
+	
+	/** Get All loans to display onto a table
+	 * @return
+	 */
+	@GetMapping(value="/getAll")
+	public ArrayList<LoanApplication> getAllApplications() {
+		return loanService.getAll();
+	}
+	
+	/** Accept Loan Applications
+	 * @param applicationId
+	 * @return
+	 */
+	@GetMapping(value="/approveLoanApplication/{applicationId}")
+	public ResponseEntity<String> approveLoan(@RequestHeader Integer applicationId){
+		return loanService.approveLoan(applicationId);
+	}
+	/** Reject Loan Applications
+	 * @param applicationId
+	 * @return
+	 */
+	@GetMapping(value="/rejectLoanApplication/{applicationId}")
+	public ResponseEntity<String> rejectLoan(@PathVariable Integer applicationId){
+		return loanService.rejectLoan(applicationId);
+	}
 }
