@@ -26,6 +26,7 @@ import lombok.ToString;
 public class CustomerLoan {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@ApiModelProperty(value = "Loan Id for the Customer")
 	private Integer loanId;
 
