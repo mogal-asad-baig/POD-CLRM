@@ -38,3 +38,19 @@ insert into customerloan(loan_id,loan_product_id,customer_id,loan_principal,tenu
 insert into customerloan(loan_id,loan_product_id,customer_id,loan_principal,tenure,interest,emi,collateral_id) values(6,1006,100006,5500000,11.5,34,52000,NULL);
 insert into customerloan(loan_id,loan_product_id,customer_id,loan_principal,tenure,interest,emi,collateral_id) values(7,1007,100007,3300000,12.4,40,36000,NULL);
 insert into customerloan(loan_id,loan_product_id,customer_id,loan_principal,tenure,interest,emi,collateral_id) values(8,1008,100008,3900000,11.5,30,30000,NULL);
+
+
+
+
+
+
+
+insert into loanapplication(application_id,customer_id,loan_amount,tenure,collateral_id,collateral_type,status) values(1,100001,1000000,36,NULL,'REAL_ESTATE','Approved');
+insert into loanapplication(application_id,customer_id,loan_amount,tenure,collateral_id,collateral_type,status) values(2,100002,2000000,30,NULL,'CASH_DEPOSIT','Rejected');
+insert into loanapplication(application_id,customer_id,loan_amount,tenure,collateral_id,collateral_type,status) values(3,100003,800000,30,NULL,'REAL_ESTATE','Rejected');
+insert into loanapplication(application_id,customer_id,loan_amount,tenure,collateral_id,collateral_type,status) values(4,100004,300000,24,NULL,'CASH_DEPOSIT','Approved');
+insert into loanapplication(application_id,customer_id,loan_amount,tenure,collateral_id,collateral_type,status) values(5,100005,200000,24,NULL,'CASH_DEPOSIT','Approved');
+insert into loanapplication(application_id,customer_id,loan_amount,tenure,collateral_id,collateral_type,status) values(6,100006,400000,24,NULL,'REAL_ESTATE','Approved');
+insert into loanapplication(application_id,customer_id,loan_amount,tenure,collateral_id,collateral_type,status) values(7,100007,600000,24,NULL,'CASH_DEPOSIT','Rejected');
+insert into loanapplication(application_id,customer_id,loan_amount,tenure,collateral_id,collateral_type,status) values(8,100008,500000,24,NULL,'CASH_DEPOSIT','Approved');
+ 
