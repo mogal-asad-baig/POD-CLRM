@@ -130,4 +130,86 @@ public class LoanManagementServiceImpl implements LoanManagementService {
 			}
 		}
 	}
+	/**
+	 * Saves Loan Application to Database
+	 */
+	@Override
+	public ResponseEntity<String> applyLoan(LoanApplication loanApplication) {
+		loanApplicationRepo.save(loanApplication);
+		return new ResponseEntity<>("Application Saved", HttpStatus.ACCEPTED);
+	}
+	/**
+	 * Returns list of loans taken by customer, given customer id
+	 */
+	@Override
+	public ArrayList<LoanApplication> viewCustLoan(int custId) {
+		ArrayList<LoanApplication> list=new ArrayList<>();
+		for(LoanApplication application:loanApplicationRepo.findAll()) {
+			if(application.getCustomerId()==custId) {
+				
+				list.add(application);
+			}
+		}
+		
+		return list;
+	}
+	/**
+	 * Returns all applications that have status either Accepted/Rejected
+	 */
+	@Override
+	public ArrayList<LoanApplication> getAll(){
+		ArrayList<LoanApplication> list=new ArrayList<LoanApplication>();
+		for(LoanApplication application:loanApplicationRepo.findAll()) {
+			if(!application.getStatus().equals("Accepted") && !application.getStatus().equals("Rejected"))
+				list.add(application);
+		}
+		return list;
+	}
+	/**
+	 * Given application id, approve loan and add the details to customerloan table
+	 */
+	@Override
+	public ResponseEntity<String> approveLoan(Integer applicationId){
+		
+		LoanApplication application= loanApplicationRepo.findById(applicationId).get();
+		application.setStatus("Accepted");
+		loanApplicationRepo.save(application);
+		
+		
+		CustomerLoan customerLoan=new CustomerLoan();
+		Integer cId=0;
+		if(application.getCollateralDetails().equalsIgnoreCase("Cash Deposit")) {
+			cId=101;
+		}
+		else if(application.getCollateralDetails().equalsIgnoreCase("Real Estate")) {
+			cId=102;
+		}
+		Double emi=(Double)application.getLoanAmount()/12.0*application.getTenure();
+		customerLoan.setCustomerId(application.getCustomerId());
+		customerLoan.setLoanPrincipal(application.getLoanAmount());
+		customerLoan.setTenure(application.getTenure());
+		customerLoan.setInterest(10.5);
+		customerLoan.setEmi(emi);
+		customerLoan.setCollateralId(cId);
+		customerLoanRepo.save(customerLoan);
+		customerLoan.setLoanProductId(customerLoan.getLoanId()+1000);
+		customerLoanRepo.save(customerLoan);
+		
+		
+		return new ResponseEntity<>("Loan Application Accepted", HttpStatus.ACCEPTED);
+	
+	}
+	/**
+	 * Given an application id, reject loan and update it in table
+	 */ 
+	@Override
+	public ResponseEntity<String> rejectLoan(Integer applicationId){
+		
+		LoanApplication application=loanApplicationRepo.findById(applicationId).get();
+		application.setStatus("Rejected");
+		loanApplicationRepo.save(application);
+		return new ResponseEntity<>("Loan Application Rejected", HttpStatus.ACCEPTED);
+	
+	}
+}
 }
